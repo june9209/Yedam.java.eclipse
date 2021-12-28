@@ -130,7 +130,6 @@ public class ConditionalStatementExample {
 		default:
 			System.out.println("300만원");
 			break;
-		
 		}
 		
 	}
