@@ -52,7 +52,7 @@ public class Quiz0 {
 		    두 정수 중에서 음수가 있다면 'One of a or b is negative number'를,
 		    만일 그렇지 않다면 'both a and b are zero or more'를 출력하도록 구현하세요. */
 		int a = 10;
-		int b = -81;
+		int b = -8;
 		String result1 = ((a <= 0)||(b <= 0)) ? "One of a or b is negative number" : "both a and b are zero or more" ;
 		System.out.println("문제 5 : " + result1);
 	}
