@@ -8,6 +8,7 @@ public class Quiz0 {
 		int x = -5;
 		int y = 10;
 		int result;
+		
 
 		// 1-1) 부호연산자를 이용하여 변수 x의 값을 양수로 출력하세요. 단, 변수 x의 값은 변하지 말아야한다.
 		x = -x;
