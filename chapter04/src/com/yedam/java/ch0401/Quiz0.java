@@ -9,6 +9,8 @@ public class Quiz0 {
 		int y = 10;
 		int result;
 		
+		
+		
 
 		// 1-1) 부호연산자를 이용하여 변수 x의 값을 양수로 출력하세요. 단, 변수 x의 값은 변하지 말아야한다.
 		x = -x;
@@ -50,7 +52,7 @@ public class Quiz0 {
 		    두 정수 중에서 음수가 있다면 'One of a or b is negative number'를,
 		    만일 그렇지 않다면 'both a and b are zero or more'를 출력하도록 구현하세요. */
 		int a = 10;
-		int b = -8;
+		int b = -81;
 		String result1 = ((a <= 0)||(b <= 0)) ? "One of a or b is negative number" : "both a and b are zero or more" ;
 		System.out.println("문제 5 : " + result1);
 	}
