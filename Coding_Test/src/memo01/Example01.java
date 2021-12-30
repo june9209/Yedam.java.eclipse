@@ -21,11 +21,7 @@ public class Example01 {
 			for(int j=1; j<=i ; j++) {
 				System.out.print("*");
 			}
-			for(int j=1 ; j< line; j++)
-			{
-				System.out.println("*");
-			}
-			
+						
 		System.out.println("");
 		}
 		
