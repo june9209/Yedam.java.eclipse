@@ -1,25 +1,25 @@
 package com.yedam.java.ch02_02;
 
 public class Tire {
-	//필드
-	public int maxRotation; // 최대 회전수 ( 타이어 수명)
-	public int accumulatedRotation; // 누적 회전수
-	public String location; // 타이어의 위치
+	//�븘�뱶
+	public int maxRotation; // 理쒕� �쉶�쟾�닔 ( ���씠�뼱 �닔紐�)
+	public int accumulatedRotation; // �늻�쟻 �쉶�쟾�닔
+	public String location; // ���씠�뼱�쓽 �쐞移�
 	
-	//생성자
+	//�깮�꽦�옄
 	public Tire(String location, int maxRotation) {
 		this.location = location;
 		this.maxRotation = maxRotation;
 	}
 	
-	//메서드
+	//硫붿꽌�뱶
 	public boolean roll() {
 		accumulatedRotation++;
 		if(accumulatedRotation < maxRotation) {
-			System.out.println(location + "Tire 수명 : " + (maxRotation - accumulatedRotation));
+			System.out.println(location + "Tire �닔紐� : " + (maxRotation - accumulatedRotation));
 			return true;
 		}else {
-			System.out.println("***" + location + "Tire 펑크 ***");
+			System.out.println("***" + location + "Tire 펑크***");
 			return false;
 		}
 	}

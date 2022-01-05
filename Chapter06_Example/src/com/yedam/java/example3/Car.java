@@ -2,19 +2,19 @@ package com.yedam.java.example3;
 
 
 public class Car {
-	//í•„ë“œ
-	private static String serialNum1 = "20 ê°€ ";
+	//ÇÊµå
+	private static String serialNum1 = "20 °¡ ";
 	private static int serialNum2 = 2000;
 	
 	private int carNumber;
 
-	//ìƒì„±ì
+	//»ı¼ºÀÚ
 	Car() {
 		serialNum2++;
 		this.carNumber = serialNum2; 
 	}
 
-	//ë©”ì„œë“œ
+	//¸Ş¼­µå
 	
 	public static String getSerialNum1() {
 		return serialNum1;
