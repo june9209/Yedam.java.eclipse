@@ -1,0 +1,16 @@
+package com.yedam.java.ch03;
+
+public abstract class Animal {
+	//필드
+	public String kind;
+	
+	//메서드
+	public void breathe() {
+		System.out.println("숨을 쉽니다.");
+	}
+	
+	//생성자
+	public abstract void sound();
+	
+	
+}

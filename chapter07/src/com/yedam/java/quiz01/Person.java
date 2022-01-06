@@ -1,17 +1,18 @@
 package com.yedam.java.quiz01;
 
 public class Person {
-	// ÇÊµå
+
+	
 	private String Person;
 	private int Money;
 
 
-	// »ý¼ºÀÚ
+	
 	public Person(String Person, int Money) {
 		this.Person = Person;
 		this.Money = Money;
 	}
-	// ¸Þ¼­µå
+
 	public void buyCoffee(StarCafe Americano) {
 		this.Money -= 4000;
 		Americano.take(4000);
@@ -24,7 +25,7 @@ public class Person {
 		;
 	}
 	public void showInfo() {
-		System.out.println(Person+"¾¾ÀÇ ³²Àºµ·Àº " + Money+"¿øÀÌ´Ù. ");
+		System.out.println(Person+"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + Money+"ï¿½ï¿½ï¿½Ì´ï¿½. ");
 	}
 	
 }
