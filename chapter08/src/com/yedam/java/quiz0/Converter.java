@@ -7,6 +7,7 @@ public abstract class Converter {
 		abstract protected String getSrcString(); // 추상 메소드
 		abstract protected String getDestString(); // 추상 메소드
 		protected double ratio; // 비율
+		
 		public void run() {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println(getSrcString()+"을 "+getDestString()+"로 바꿉니다.");

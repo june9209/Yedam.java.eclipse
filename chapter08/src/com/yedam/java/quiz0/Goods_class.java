@@ -37,6 +37,7 @@ public class Goods_class {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
 
 	// 메서드
 
