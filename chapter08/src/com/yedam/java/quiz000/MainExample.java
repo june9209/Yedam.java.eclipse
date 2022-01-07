@@ -21,7 +21,7 @@ public class MainExample {
 		
 		boolean run = true;
 		Scanner sc = new Scanner(System.in);
-		
+		String n;
 		
 		while(run) {
 			System.out.println("1.책정보 입력 | 2.전체조회 | 3.단권조회 | 4.책 대여 | 5.책 반납 | 6.종료");
@@ -32,6 +32,8 @@ public class MainExample {
 				String name = sc.nextLine();
 				System.out.print("책저자 > ");
 				String from = sc.nextLine();
+				Book book = new Book(name,from);
+				list.add(book);
 				
 				
 				
