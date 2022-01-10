@@ -33,7 +33,7 @@ public class MainExample {
 				System.out.print("책저자 > ");
 				String from = sc.nextLine();
 				Book book = new Book(name,from);
-				list.add(book);
+				//list.add(book);
 				
 				
 				
