@@ -41,17 +41,18 @@ public class Main_Example {
 			case 4:
 				System.out.print("완료할 할 일을 선택해주세요");
 				int num1 = Integer.parseInt(sc.nextLine());
-				
+
 				for (Do_it do_it : d_list) {
-					
-						if(do_it.getNum() == num1) {
+					if (num1 == do_it.getNum()) {
+						if (do_it.tf == false) {
 							do_it.setTf(true);
 							System.out.println("해당 할 일을 완료처리하였습니다.");
 							break;
-						}else {
-							System.out.println("해당 할 일은 이미 완료처리하였습니다.");
-						}
-					} 
+						}else if(do_it.tf == true) {
+							System.out.println("해당 할 일은 이미 완료처리되었습니다.");
+						}break;
+					}
+				}
 				break;
 
 			case 5:
