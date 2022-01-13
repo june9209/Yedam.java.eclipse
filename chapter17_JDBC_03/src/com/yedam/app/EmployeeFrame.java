@@ -1,5 +1,6 @@
 package com.yedam.app;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -59,7 +60,7 @@ public class EmployeeFrame {
 		empDAO.insert(emp);
 	}
 	public void updateEmployee() {
-		Employee emp = inputEmployeeSalary();
+		Employee emp = updateEmployeeSalary();
 		empDAO.update(emp);
 	}
 	public void deleteEmployee() {
@@ -78,6 +79,7 @@ public class EmployeeFrame {
 		for(Employee employee : list) {
 			System.out.println(employee);
 		}
+		
 	}
 	
 	
@@ -113,7 +115,7 @@ public class EmployeeFrame {
 		
 		return emp;
 	}
-	public Employee inputEmployeeSalary() {
+	public Employee updateEmployeeSalary() {
 		Employee emp = new Employee();
 		System.out.print("사번 > ");
 		emp.setEmployeeId(sc.nextInt());
