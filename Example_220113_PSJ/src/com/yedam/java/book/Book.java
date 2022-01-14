@@ -1,10 +1,10 @@
 package com.yedam.java.book;
 
 public class Book {
-	private String book_name ;
-	private String book_writer ;
+	private String book_name;
+	private String book_writer;
 	private String book_content;
-	private int book_rental ;
+	private int book_rental = 0;
 	
 	
 	public String getBook_name() {
@@ -34,7 +34,7 @@ public class Book {
 	@Override
 	public String toString() {
 		return "책 제목 : " + book_name + ", 저자명 : " + book_writer + ", 내용 : " + book_content
-				+ ", 대여여부 :ㅣ " + book_rental ;
+				+ ", 대여여부 : " + ((book_rental ==0)? "대여가능" : "대여중");
 	}
 	
 	

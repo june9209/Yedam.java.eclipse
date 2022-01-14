@@ -29,7 +29,7 @@ public class BookFrame {
 				searchContent();
 			} else if (menuNo == 4) {
 				// 대여가능
-				rentTF();
+				showIn();
 			} else if (menuNo == 5) {
 				// 책 대여
 				rent();
@@ -45,6 +45,15 @@ public class BookFrame {
 				break;
 			}
 
+		}
+	}
+
+	public void showIn() {
+		List<Book> list = dao.selectAll();
+		for (Book book : list) {
+			if(book.getBook_rental()==0) {
+				System.out.println(book);
+			}
 		}
 	}
 
@@ -81,45 +90,39 @@ public class BookFrame {
 	}
 
 	public void searchContent() {
+		
 		System.out.print("검색내용> ");
 		String bookcontent = sc.nextLine();
-		Book book = dao.AloneJavaBook(bookcontent);
-		System.out.println(book);
-	}
-
-	public void rentTF() {
-
-		if (dao.tfBook(1) != null) {
-
-			Book book = dao.tfBook(0);
-			System.out.println(book);
+		List<Book> list = dao.selectAll();
+		for (Book book : list) {
+			if (book.getBook_content().contains(bookcontent)) {
+				System.out.println(book);
+			}
 		}
 	}
 
 	public void rent() {
-		List<Book> list = dao.selectAll();
+		System.out.print("책 대여 > ");
 		String name = sc.nextLine();
-		for (Book book : list) {
-			if (book.getBook_name().equals(name)) {
-				if (book.getBook_rental() == 0) {
-					System.out.println("해당 책은 대여중입니다.");
-				} else {
-					book.setBook_rental(0);
-					System.out.println("대여되었습니다.");
-
-				}
-			}
+		Book book = dao.selectOne(name);
+		if (book.getBook_rental() == 0) {
+			book.setBook_rental(1);
+			dao.out(book);
+		} else {
+			System.out.println("책이 대출되었습니다.");
 		}
+
 	}
 
 	public void bring() {
-		List<Book> list = dao.selectAll();
+		System.out.print("책 반납 > ");
 		String name = sc.nextLine();
-		for (Book book : list) {
-			if (book.getBook_name().equals(name)) {
-				book.setBook_rental(1);
-				System.out.println("반납되었습니다..");
-			}
+		Book book = dao.selectOne(name);
+		if (book.getBook_rental() == 1) {
+			book.setBook_rental(0);
+			dao.in(book);
+		} else {
+			System.out.println("반납을왜하십니까");
 		}
 
 	}
@@ -131,7 +134,6 @@ public class BookFrame {
 
 	public void end() {
 		System.out.println("===프로그램 종료 ===");
-		System.exit(0);
 	}
 
 	public Book inputBookInfo() {

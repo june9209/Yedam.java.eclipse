@@ -20,9 +20,10 @@ public class BookDAOImpl extends DAO implements BookDAO {
 	@Override
 	public List<Book> selectAll() {
 		List<Book> list = new ArrayList<>();
+		
 		try {
 			connect();
-			String selectall = "SELECT * FROM book ORDER BY book_name";
+			String selectall = "SELECT * FROM book";
 			pstmt = conn.prepareStatement(selectall);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -71,19 +72,23 @@ public class BookDAOImpl extends DAO implements BookDAO {
 
 	@Override
 	//String searchAJ = "SELECT * FROM book WHERE book_content LIKE %혼자 공부하는 자바%";
-	public Book AloneJavaBook(String book_content) {
+	public List<Book> AloneJavaBook(String bookcontent) {
+		List<Book> list = new ArrayList<>();
 		Book book = null;
 		try {
 			connect();
-			String searchAJ = "SELECT * FROM book WHERE book_content LIKE %book_content%";
+			String searchAJ = "SELECT * FROM book WHERE book_content = ?";
 			pstmt = conn.prepareStatement(searchAJ);
+			pstmt.setString(1, bookcontent);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				book = new Book();
 				book.setBook_name(rs.getString("book_name"));
 				book.setBook_writer(rs.getString("book_writer"));
 				book.setBook_content(rs.getString("book_content"));
 				book.setBook_rental(rs.getInt("book_rental"));
+				
+				list.add(book); 
 			}
 
 		} catch (SQLException e) {
@@ -91,7 +96,7 @@ public class BookDAOImpl extends DAO implements BookDAO {
 		} finally {
 			disconnect();
 		}
-		return book;
+		return list;
 	}
 
 	@Override
@@ -102,7 +107,7 @@ public class BookDAOImpl extends DAO implements BookDAO {
 			String searchJ = "SELECT * FROM book WHERE book_content LIKE %자바%";
 			pstmt = conn.prepareStatement(searchJ);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				book = new Book();
 				book.setBook_name(rs.getString("book_name"));
 				book.setBook_writer(rs.getString("book_writer"));
@@ -118,27 +123,8 @@ public class BookDAOImpl extends DAO implements BookDAO {
 		return book;
 	}
 
-	@Override
-	public Book tfBook(int book_rental) {
-		Book book = null;
-		try {
-			connect();
-			String rental = "UPDATE book set book_rental = ?";
-			pstmt = conn.prepareStatement(rental);
-			
-			pstmt.setInt(1, book_rental);
-			
-			int result = pstmt.executeUpdate();
-			System.out.println(result + "대여 여부 변경되었습니다.");
-		
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			disconnect();
-		}
-		return book;
-	}
-
+	
+	
 	@Override
 	public void out(Book book) {
 		try {
@@ -150,7 +136,7 @@ public class BookDAOImpl extends DAO implements BookDAO {
 			pstmt.setString(2, book.getBook_name());
 			int result = pstmt.executeUpdate();
 			
-			System.out.println(result +"가 대여되었습니다. ");
+			System.out.println(result +"권이 대여되었습니다. ");
 			
 			
 		}catch(SQLException e) {
@@ -173,7 +159,7 @@ public class BookDAOImpl extends DAO implements BookDAO {
 			
 			int result = pstmt.executeUpdate();
 			
-			System.out.println(result + "가 반납되었습니다.");
+			System.out.println(result + "권이 반납되었습니다.");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
