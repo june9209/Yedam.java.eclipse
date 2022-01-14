@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DAO {
 	private String Driver = "org.sqlite.JDBC";
-	private String url = "jdbc:sqlite:/c:/DEV/workspace/Book.db";
+	private String url = "jdbc:sqlite:/C:\\Users\\User\\Desktop\\SQLite/Book.db";
 	
 	protected Connection conn = null;
 	protected PreparedStatement pstmt = null;

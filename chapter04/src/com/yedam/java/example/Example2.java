@@ -15,7 +15,7 @@ public class Example2 {
 		String pw = "1234";
 
 		while (run) {
-			System.out.println("--------------------------------");
+			System.out.println("--------------------------------"); //자동tostring()
 			System.out.println("1.예금 | 2. 출금 | 3. 잔고 | 4. 종료");
 			int in = input.nextInt();
 			switch (in) {
