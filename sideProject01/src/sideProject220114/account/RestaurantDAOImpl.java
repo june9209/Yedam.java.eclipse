@@ -130,7 +130,7 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 
 		try {
 			connect();
-			String searchRestaurant = "SELECT menu,price FROM restaurant WHERE store =?";
+			String searchRestaurant = "SELECT menu,price,menuNo FROM restaurant WHERE store =?";
 			pstmt = conn.prepareStatement(searchRestaurant);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -138,6 +138,7 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 				restaurant.setRestaurant(rs.getString("store"));
 				restaurant.setMenu(rs.getString("menu"));
 				restaurant.setPrice(rs.getInt("price"));
+				restaurant.setMenuNo(rs.getInt("menuNo"));
 				list.add(restaurant);
 			}
 
@@ -180,11 +181,12 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 	public void enterStore(restaurantField menu) {
 		try {
 			connect();
-			String admin = "INSERT INTO restaurant VALUES(?,?,?)";
+			String admin = "INSERT INTO restaurant VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(admin);
 			pstmt.setString(1, menu.getRestaurant());
 			pstmt.setString(2, menu.getMenu());
 			pstmt.setInt(3, menu.getPrice());
+			pstmt.setInt(4, menu.getMenuNo());
 			int result = pstmt.executeUpdate();
 			System.out.println("메뉴 " + result + "개가 추가되었습니다.");
 
@@ -208,7 +210,6 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 			pstmt.setInt(3, post.getPw());
 			int result = pstmt.executeUpdate();
 			System.out.println(result + "개의 게시글이 추가되었습니다.");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -5,8 +5,22 @@ public class restaurantField {
 	private String restaurant;
 	private String menu;
 	private int price;
+	private int menuNo;
+	static int count = 1;
 	
+	public restaurantField() {
+		this.menuNo += count;
+		count++;
+	}
 	
+	public int getMenuNo() {
+		return menuNo;
+	}
+
+	public void setMenuNo(int menuNo) {
+		this.menuNo = menuNo;
+	}
+
 	public String getRestaurant() {
 		return restaurant;
 	}
