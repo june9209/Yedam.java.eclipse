@@ -7,7 +7,6 @@ public class restaurantField {
 	private int price;
 	
 	
-	
 	public String getRestaurant() {
 		return restaurant;
 	}

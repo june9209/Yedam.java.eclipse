@@ -3,6 +3,13 @@ package sideProject220114.account;
 public class PostField {
 	private String title;
 	private String content;
+	private int pw;
+	public int getPw() {
+		return pw;
+	}
+	public void setPw(int pw) {
+		this.pw = pw;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -19,5 +26,6 @@ public class PostField {
 	public String toString() {
 		return "게시글 :  제목 : " + title + "\n 내용 :" + content ;
 	}
+	
 	
 }
