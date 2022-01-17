@@ -6,19 +6,23 @@ public class restaurantField {
 	private String menu;
 	private int price;
 	private int menuNo;
-	static int count = 1;
-	
-	public restaurantField() {
-		this.menuNo += count;
-		count++;
+	private int like;
+
+	public int getLike() {
+		return like;
 	}
-	
+
+	public void setLike(int like) {
+		this.like = like;
+	}
+
 	public int getMenuNo() {
 		return menuNo;
 	}
 
 	public void setMenuNo(int menuNo) {
-		this.menuNo = menuNo;
+		
+		this.menuNo += menuNo;
 	}
 
 	public String getRestaurant() {
@@ -39,6 +43,13 @@ public class restaurantField {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	@Override
+	public String toString() {
+		return "가게 이름 : " + restaurant;
+	}
+	public String toString1() {
+		return "메뉴 번호 : "+ menuNo +", 메뉴 : "+menu+ ", 가격 : "+ price;
+	}
+//		return "
 	
 }

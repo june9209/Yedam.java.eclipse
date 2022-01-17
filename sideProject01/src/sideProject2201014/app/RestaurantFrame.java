@@ -65,13 +65,14 @@ public class RestaurantFrame {
 						GO();
 					} else if (menuNo2 == 2) {
 						// 후기게시판
-						post();
+						postMenu();
 					} else if (menuNo2 == 9) {
 						back();
 						break;
 					}
 				}
 			}
+
 		}
 
 	}
@@ -94,6 +95,12 @@ public class RestaurantFrame {
 			}
 		}
 
+	}
+
+	private static void menuPrint4() {
+		System.out.println("------------------------------------------------------------------");
+		System.out.println("1. 게시글 목록 | 2. 게시글 등록 |  3. 게시글 수정 | 4. 게시글 삭제 | 9. 뒤로가기");
+		System.out.println("------------------------------------------------------------------");
 	}
 
 	public static void menuPrint1() {
@@ -198,43 +205,73 @@ public class RestaurantFrame {
 		for (restaurantField restaurant : list) {
 			System.out.println(restaurant.toString());
 		}
-		menuPrint4();
+		menuPrint5();
 	}
 
-	public static void menuPrint4() {
+	public static void menuPrint5() {
 		String answer;
 		while (true) {
 			try {
 				System.out.print("가게선택 > ");
+
 				String restaurant = sc.nextLine();
 				List<restaurantField> list = single.searchRestaurant(restaurant);
-				for (restaurantField menu : list) {
-					System.out.println(menu);
+				int[] menuNo = new int[list.size()];
+				for (int i = 0; i < list.size(); i++) {
+					restaurantField menu = list.get(i);
+					menuNo[i] = menu.getPrice();
+					System.out.println(menu.toString1());
 				}
-				System.out.println("주문하시겠습니까? y or n");
-				answer = sc.nextLine();
-				if (answer.toLowerCase().equals("y")) {
-					List<restaurantField> list1 = single.searchRestaurant(restaurant);
-					
-					Bespeak();
-					break;
-				} else if (answer.toLowerCase().equals("n")) {
+
+				try {
+
+					System.out.println("주문하시겠습니까? y or n");
+					answer = sc.nextLine();
+					if (answer.toLowerCase().equals("y")) {
+						int result = 0;
+						while (true) {
+							System.out.println("메뉴번호를 입력하세요.");
+							int menuNo1 = Integer.parseInt(sc.nextLine());
+							System.out.println("수량을 입력하세요.");
+							int Num = Integer.parseInt(sc.nextLine());
+
+							result += menuNo[menuNo1 - 1] * Num;
+							System.out.println(result + "원입니다.");
+
+							System.out.println("주문을 종료하시겠습니까? y or n");
+							answer = sc.nextLine();
+							if (answer.toLowerCase().equals("y")) {
+								System.out.println("총 가격 " + result + " 입니다.");
+								break;
+							} else if (answer.toLowerCase().equals("n")) {
+								continue;
+							}else {
+								System.out.println("잘못입력하셨습니다.");
+								continue;
+							}
+
+							
+						}
+						break;
+
+					} else if (answer.toLowerCase().equals("n")) {
+						break;
+					} else {
+						System.out.println("잘못입력하셨습니다.");
+						continue;
+					}
+				} catch (Exception e) {
+					System.out.println("잘못 입력하셨습니다.");
 					break;
 				}
-				break;
+
 			} catch (Exception e) {
 				System.out.println("잘못 입력하셨습니다.");
-				e.printStackTrace();
-				break;
+				continue;
 			}
 		}
 	}
 
-	// 주문하는 메서드
-	public static void Bespeak() {
-
-//		restaurantField bespeak = single.searchRestaurant();
-	}
 
 	// 게시글 등록
 	public static void post() {
@@ -265,6 +302,7 @@ public class RestaurantFrame {
 			posttitle = sc.nextLine();
 			System.out.print("비밀번호를 입력하시오.");
 			int postPassword = Integer.parseInt(sc.nextLine());
+
 			if (single.checkPw(posttitle, postPassword) == true) {
 				single.postDelete(posttitle);
 				break;
@@ -293,18 +331,18 @@ public class RestaurantFrame {
 			System.out.println("===수정할 글의 title,password를 입력하세요.===");
 			System.out.print("제목을 입력하세요. >");
 			posttitle = sc.nextLine();
-			System.out.print("비밀번호를 입력하시오.");
+			System.out.print("비밀번호를 입력하시오. > ");
 			int postPassword = Integer.parseInt(sc.nextLine());
 			if (single.checkPw(posttitle, postPassword) == true) {
-
-				System.out.print("제목");
+				System.out.println("수정할 제목과 내용을 입력하세요.");
+				System.out.print("제목 > ");
 				String newcontent = sc.nextLine();
-				System.out.print("내용");
+				System.out.print("내용 > ");
 				String newtitle = sc.nextLine();
 				single.postUpdate(newtitle, newcontent, posttitle);
 				break;
 			} else {
-				System.out.print("1번 입력시 다시 입력 \n2번 입력시 뒤로가기.");
+				System.out.print("1번 입력시 다시 입력 \n2번 입력시 뒤로가기.\n");
 				int choice = Integer.parseInt(sc.nextLine());
 				try {
 					if (choice == 1) {
@@ -328,21 +366,33 @@ public class RestaurantFrame {
 
 	}
 
+	// 메뉴추가
 	public static void insertmenu() {
 		restaurantField menu = inputmenu();
 		single.enterStore(menu);
 	}
 
+	
 	public static restaurantField inputmenu() {
 		restaurantField menu1 = new restaurantField();
 
+		
 		System.out.print("가게 이름 > ");
-		menu1.setRestaurant(sc.nextLine());
+		String name = sc.nextLine();
+		menu1.setRestaurant(name);
 		System.out.print("메뉴 > ");
 		menu1.setMenu(sc.nextLine());
 		System.out.print("가격 > ");
 		menu1.setPrice(Integer.parseInt(sc.nextLine()));
-
+		
+		List<restaurantField> list = single.searchRestaurant(name);
+//		int[] menuNo = new int[list.size()];
+		menu1.setMenuNo(list.size()+1);
+//		for (int i = 0; i < list.size(); i++) {
+//			restaurantField menu = list.get(i);
+//			menu1.setMenuNo(i);
+//			
+//		}
 		return menu1;
 	}
 
@@ -351,44 +401,7 @@ public class RestaurantFrame {
 	}
 
 	public static void end() {
-		System.out.println("===프로그램 종료===`");
+		System.out.println("===프로그램 종료===");
 	}
 
 }
-//public static userField inputLoginInfo() {
-//List<userField> list = single.selectAllUser();
-//String pw = "";
-//String id = "";
-//System.out.print("ID를 입력하세요 > ");
-//id = sc.nextLine();
-//for (userField user : list) {
-//	if (user.getId().contains(id)) {
-//		System.out.print("ID입력 성공");
-//		if (user.getPw().contains(pw)) {
-//
-//		} else {
-//			System.out.println("비밀번호 입력 오류");
-//		}
-//	} else {
-//		System.out.println("해당하는 ID가 없습니다.");
-//	}
-//}
-//
-////if (loginUser == null) {
-////	System.out.println("회원정보가 없습니다." + 
-////						"\n다시한번 확인해주세요.");
-////} else if (loginUser.getId().equals(id)) {
-////	System.out.print("비밀번호를 입력하세요 > ");
-////	pw = sc.nextLine();
-////}
-//return null;
-//}
-//
-/*
- * public static void loginUser(){ User user = inputLoginInfo(); User loginUser=
- * UserDAOImpl.getInstance().selectUserInfo(user); if(loginUser == null){
- * system.out.println("회원정보를 확인해주세요.") } else if (loginUser.getAuth() == 0) {
- * //일반유저일때 실행하는 메뉴 new AccountFrame().run();
- * 
- * }else if(loginUser.getAuth() ==1) { //일반회원일떄 실행하는 메뉴 } }
- */

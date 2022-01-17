@@ -1,6 +1,7 @@
 package sideProject220114.account;
 
 public class PostField {
+
 	private String title;
 	private String content;
 	private int pw;
@@ -24,7 +25,7 @@ public class PostField {
 	}
 	@Override
 	public String toString() {
-		return "게시글 :  제목 : " + title + "\n 내용 :" + content ;
+		return " 제목 : " + title + "		내용 :" + content ;
 	}
 	
 	

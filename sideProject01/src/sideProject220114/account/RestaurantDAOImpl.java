@@ -12,7 +12,7 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 	private static RestaurantDAO instance = new RestaurantDAOImpl();
 
 	private RestaurantDAOImpl() {
-		
+
 	}
 
 	public static RestaurantDAO getInstance() {
@@ -125,17 +125,17 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 		return list;
 	}
 
-	public List<restaurantField> searchRestaurant(String store) {
+	public List<restaurantField> searchRestaurant(String name) {
 		List<restaurantField> list = new ArrayList<>();
 
 		try {
 			connect();
-			String searchRestaurant = "SELECT menu,price,menuNo FROM restaurant WHERE store =?";
+			String searchRestaurant = "SELECT menu,price,menuNo FROM restaurant WHERE store = ? ORDER BY menuNo";
 			pstmt = conn.prepareStatement(searchRestaurant);
+			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				restaurantField restaurant = new restaurantField();
-				restaurant.setRestaurant(rs.getString("store"));
 				restaurant.setMenu(rs.getString("menu"));
 				restaurant.setPrice(rs.getInt("price"));
 				restaurant.setMenuNo(rs.getInt("menuNo"));
@@ -149,7 +149,7 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 		}
 		return list;
 	}
-	
+
 
 	@Override
 	// 등록된가게
@@ -175,7 +175,6 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 		return list;
 	}
 
-	
 	@Override
 	// 메뉴와 가격 추가
 	public void enterStore(restaurantField menu) {
@@ -225,17 +224,15 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 			pstmt = conn.prepareStatement(delete);
 			pstmt.setString(1, postTitle);
 			pstmt.executeUpdate();
-				
-		}catch(
 
-	SQLException e)
-	{
-		e.printStackTrace();
-	}finally
-	{
-		disconnect();
+		} catch (
 
-	}
+		SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+
+		}
 	}
 
 	@Override
