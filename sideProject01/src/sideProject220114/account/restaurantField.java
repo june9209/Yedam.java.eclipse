@@ -6,15 +6,6 @@ public class restaurantField {
 	private String menu;
 	private int price;
 	private int menuNo;
-	private int like;
-
-	public int getLike() {
-		return like;
-	}
-
-	public void setLike(int like) {
-		this.like = like;
-	}
 
 	public int getMenuNo() {
 		return menuNo;

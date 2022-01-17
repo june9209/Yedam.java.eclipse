@@ -202,11 +202,12 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 	public void post(PostField post) {
 		try {
 			connect();
-			String upload = "INSERT INTO post VALUES(?,?,?)";
+			String upload = "INSERT INTO post VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(upload);
 			pstmt.setString(1, post.getTitle());
 			pstmt.setString(2, post.getContent());
 			pstmt.setInt(3, post.getPw());
+			pstmt.setInt(4,post.getNum());
 			int result = pstmt.executeUpdate();
 			System.out.println(result + "개의 게시글이 추가되었습니다.");
 		} catch (SQLException e) {
@@ -215,7 +216,36 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 			disconnect();
 		}
 	}
-
+	
+	public void postSearch(PostField title) {
+		List<PostField> list = new ArrayList<>();
+		try {
+			connect();
+			String search = "SELECT * FROM post";
+			pstmt = conn.prepareStatement(search);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				PostField post = new PostField();
+				post.setTitle(rs.getString("title"));
+				post.setContent(rs.getString("content"));
+				post.setPw(rs.getInt("password"));
+				post.setNum(rs.getInt("num"));
+				list.add(post);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+	}
+//	rs = pstmt.executeQuery();
+//	while (rs.next()) {
+//		userField user = new userField();
+//		user.setId(rs.getString("id"));
+//		user.setPw(rs.getString("pw"));
+//		user.setAu(rs.getInt("admin"));
+//		list.add(user);
+//	}
 	@Override
 	public void postDelete(String postTitle) {
 		try {
@@ -283,7 +313,7 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 		List<PostField> list = new ArrayList<>();
 		try {
 			connect();
-			String selectall = "SELECT * FROM post";
+			String selectall = "SELECT * FROM post ORDER BY num ";
 			pstmt = conn.prepareStatement(selectall);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -291,6 +321,7 @@ public class RestaurantDAOImpl extends DAO implements RestaurantDAO {
 				post.setTitle(rs.getString("title"));
 				post.setContent(rs.getString("content"));
 				post.setPw(rs.getInt("password"));
+				post.setNum(rs.getInt("num"));
 				post.toString();
 				list.add(post);
 			}

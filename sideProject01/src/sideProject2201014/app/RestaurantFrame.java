@@ -89,7 +89,9 @@ public class RestaurantFrame {
 				postUpdate();
 			} else if (menuNo == 4) {
 				postDelete();
-			} else if (menuNo == 9) {
+			} else if (menuNo == 5) {
+				postSearch();
+			}else if (menuNo == 9) {
 				back();
 				break;
 			}
@@ -97,10 +99,12 @@ public class RestaurantFrame {
 
 	}
 
+	
+
 	private static void menuPrint4() {
-		System.out.println("------------------------------------------------------------------");
-		System.out.println("1. 게시글 목록 | 2. 게시글 등록 |  3. 게시글 수정 | 4. 게시글 삭제 | 9. 뒤로가기");
-		System.out.println("------------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------------------------");
+		System.out.println("1. 게시글 목록 | 2. 게시글 등록 |  3. 게시글 수정 | 4. 게시글 삭제 | 5. 게시글 검색 | 9. 뒤로가기");
+		System.out.println("---------------------------------------------------------------------------------");
 	}
 
 	public static void menuPrint1() {
@@ -249,8 +253,6 @@ public class RestaurantFrame {
 								System.out.println("잘못입력하셨습니다.");
 								continue;
 							}
-
-							
 						}
 						break;
 
@@ -289,6 +291,8 @@ public class RestaurantFrame {
 		post.setContent(sc.nextLine());
 		System.out.print("비밀번호 > ");
 		post.setPw(Integer.parseInt(sc.nextLine()));
+		List<PostField> list = single.postList();
+		post.setNum(list.size()+1);
 
 		return post;
 	}
@@ -356,7 +360,7 @@ public class RestaurantFrame {
 			}
 		}
 	}
-
+	
 	// 게시글 목록
 	public static void postList() {
 		List<PostField> list = single.postList();
@@ -366,6 +370,23 @@ public class RestaurantFrame {
 
 	}
 
+	//게시글 검색
+		public static void postSearch() {
+			
+			System.out.println("제목or 글 번호 입력하세요 > ");
+			String postTitle = sc.nextLine();
+			List<PostField> list =RestaurantDAOImpl.getInstance().postList();
+			
+			for (PostField postField : list) {
+				if(postTitle == postField.getTitle() && postTitle == Integer.toString(postField.getNum())) {
+					System.out.println(postField.toString());
+				}
+					
+			}
+		
+		
+		}
+		
 	// 메뉴추가
 	public static void insertmenu() {
 		restaurantField menu = inputmenu();
@@ -386,8 +407,8 @@ public class RestaurantFrame {
 		menu1.setPrice(Integer.parseInt(sc.nextLine()));
 		
 		List<restaurantField> list = single.searchRestaurant(name);
-//		int[] menuNo = new int[list.size()];
 		menu1.setMenuNo(list.size()+1);
+//		int[] menuNo = new int[list.size()];
 //		for (int i = 0; i < list.size(); i++) {
 //			restaurantField menu = list.get(i);
 //			menu1.setMenuNo(i);
