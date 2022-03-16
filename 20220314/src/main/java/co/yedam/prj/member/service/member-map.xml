@@ -15,16 +15,31 @@
 
 	<insert id="insertMember"
 		parameterType="co.yedam.prj.member.service.MemberVO">
-
+		INSERT INTO MEMBER
+		VALUES(#{id}, #{password}, #{name}, #{tel} ,#{address},'USER')
 	</insert>
+	
 	<update id="updateMember"
 		parameterType="co.yedam.prj.member.service.MemberVO">
-
+		update member 
+		<set>
+			<if test = "password != null">SET PASSWORD = #{password},</if>
+			<if test = "name != null">SET NAME = #{name},</if>	
+			<if test = "tel != null">SET TEL = #{tel},</if>
+			<if test = "address != null">SET ADDRESS = #{address},</if>
+			<if test = "author != null">SET AUTHOR = #{author}</if>
+		</set>
+		WHERE ID = #{id}
 	</update>
+	
 	<delete id="deleteMember"
-		parameterType="co.yedam.prj.member.service.MemberVO"></delete>
+		parameterType="co.yedam.prj.member.service.MemberVO">
+		DELETE FROM MEMBER WHERE ID = #{id}	
+	</delete>
 
-	<select id="isIdCheck" parameterType="String">
-
+	<select id="isIdCheck" parameterType="String" resultType="boolean">
+		select case when count(id) = 1 then 0 else 1 end as id 
+		from member where id = #{str}
 	</select>
+	
 </mapper>

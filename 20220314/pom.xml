@@ -53,7 +53,18 @@
 		    <artifactId>jstl</artifactId>
 		    <version>1.2</version>
 		</dependency>
-
+		<dependency>
+		          <groupId>com.fasterxml.jackson.core</groupId>
+		          <artifactId>jackson-databind</artifactId>
+		          <version>2.13.2</version>
+		 </dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
+		<dependency>
+		    <groupId>org.apache.tiles</groupId>
+		    <artifactId>tiles-extras</artifactId>
+		    <version>3.0.8</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

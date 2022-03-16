@@ -9,5 +9,7 @@ public interface MemberMapper {
 	int updateMember(MemberVO vo);		//수정 U
 	int deleteMember(MemberVO vo);		//삭제 D
 	
-	boolean isIdCheck(String str); 		//아이디 중복체크
+	boolean isIdCheck(String str); 		//아이디 중복체크 (is NN형식 존재하면 false, 존재하지않으면 true)  
+										//is NN형식의 DEFAULT 값이 false
+	
 }
